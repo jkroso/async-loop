@@ -38,10 +38,10 @@ function whilst (test, iterator, done) {
  * @see whilst
  */
 
-function doWhilst (iterator, test, done) {
-	iterator(function (err) {
+function doWhilst (iterator, done) {
+	iterator(function next(err, cont) {
 		if (err) done && done(err)
-		else if (test()) doWhilst(iterator, test, done)
+		else if (cont) iterator(next)
 		else done && done()
 	})
 }

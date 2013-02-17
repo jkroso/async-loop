@@ -65,20 +65,16 @@ describe('doWhilst', function () {
 		doWhile(
 			function (cb) {
 				call_order.push(['iterator', count++])
-				delay(cb)
-			},
-			function () {
-				call_order.push(['test', count])
-				return (count < 5)
+				delay(cb, null, count < 5)
 			},
 			function (err) {
 				should.not.exist(err)
 				call_order.should.deep.equal([
-					['iterator', 0], ['test', 1],
-					['iterator', 1], ['test', 2],
-					['iterator', 2], ['test', 3],
-					['iterator', 3], ['test', 4],
-					['iterator', 4], ['test', 5]
+					['iterator', 0],
+					['iterator', 1],
+					['iterator', 2],
+					['iterator', 3],
+					['iterator', 4],
 				])
 				count.should.equal(5)
 				done()
@@ -89,10 +85,7 @@ describe('doWhilst', function () {
 	it('should stop as soon as there is an error', function (done) {
 		doWhile(
 			function (cb) {
-				delay(cb, 'error')
-			},
-			function () {
-				return true
+				delay(cb, 'error', true)
 			},
 			function (err) {
 				err.should.equal('error')
