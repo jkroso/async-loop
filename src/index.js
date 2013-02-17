@@ -4,9 +4,9 @@ exports.until = until
 exports.doUntil = doUntil
 
 /**
- * Execute a callback for each time the test passes. Then call the 3rd callback
- * if one is provided. Any errors handled within the iterator will cause the loop
- * to halt immediatly and the 3rd argument will be called.
+ * Execute a callback for each time the test passes. Any 
+ * errors handled within the iterator will cause the loop
+ * to halt immediatly and `done` to be called.
  *
  *   whilst(
  *     function () { return true },
@@ -16,34 +16,33 @@ exports.doUntil = doUntil
  *     }
  *   )
  *
- * @param {Function} test, should return a boolean to pass or fail the test
- * @param {Function} iterator, this is the body of the loop
- * @param {Function} [done] called once either the test fails or an error is handled
+ * @param {Function} test, should return a boolean
+ * @param {Function} iterator
+ * @param {Function} [done]
  */
 
 function whilst (test, iterator, done) {
-	if (test()) 
+	if (test()) {
 		iterator(function (err) {
 			if (err) done && done(err)
 			else whilst(test, iterator, done)
 		})
-	else 
+	} else {
 		done && done()
+	}
 }
 
 /**
- * Like while except the iterator the order of the test and the iterator is switched.
+ * Like while except the order of the test and the iterator is switched.
  * Therefore, the iterator will allways be called at least once
- * 
- * @see while
+ * @see whilst
  */
 
 function doWhilst (iterator, test, done) {
 	iterator(function (err) {
-		if (test())
-			doWhilst(iterator, test, done)
-		else 
-			done && done()
+		if (err) done && done(err)
+		else if (test()) doWhilst(iterator, test, done)
+		else done && done()
 	})
 }
 
@@ -55,13 +54,14 @@ function doWhilst (iterator, test, done) {
  */
 
 function until (test, iterator, done) {
-	if (!test())
+	if (!test()) {
 		iterator(function (err) {
 			if (err) done && done(err)
 			else until(test, iterator, done)
 		})
-	else
+	} else {
 		done && done()
+	}
 }
 
 /**

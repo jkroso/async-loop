@@ -1,16 +1,16 @@
 {
   "name": "async-loop",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "a low level set of looping constructs for async operations",
   "main": "src/index.js",
   "dependencies": {},
   "devDependencies": {
     "mocha": "*",
     "chai": "*",
-    "laissez-faire": "*",
-    "bigfile": "*"
+    "bigfile": "~0.2.3",
+    "sourcegraph": "~0.4.3"
   },
-  "scripts" : {
+  "scripts": {
     "test": "make test"
   },
   "repository": {
@@ -20,7 +20,10 @@
   "bugs": {
     "url": "https://github.com/jkroso/async-loop/issues"
   },
-  "keywords": ["aysnc","loop"],
+  "keywords": [
+    "aysnc",
+    "loop"
+  ],
   "author": "Jakeb Rosoman",
   "license": "MIT"
 }

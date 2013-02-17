@@ -40,6 +40,7 @@ describe('while', function () {
 			}
 		)
 	})
+
 	it('should stop as soon as there is an error', function (done) {
 		whilst(
 			function () {
@@ -80,6 +81,21 @@ describe('doWhilst', function () {
 					['iterator', 4], ['test', 5]
 				])
 				count.should.equal(5)
+				done()
+			}
+		)
+	})
+
+	it('should stop as soon as there is an error', function (done) {
+		doWhile(
+			function (cb) {
+				delay(cb, 'error')
+			},
+			function () {
+				return true
+			},
+			function (err) {
+				err.should.equal('error')
 				done()
 			}
 		)
