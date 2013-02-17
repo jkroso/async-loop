@@ -22,14 +22,11 @@ exports.doUntil = doUntil
  */
 
 function whilst (test, iterator, done) {
-	if (test()) {
-		iterator(function (err) {
-			if (err) done && done(err)
-			else whilst(test, iterator, done)
-		})
-	} else {
-		done && done()
-	}
+	!function next(err) {
+		if (err) done && done(err)
+		else if (test()) iterator(next)
+		else done && done()
+	}()
 }
 
 /**
