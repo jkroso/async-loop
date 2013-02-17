@@ -22,14 +22,12 @@ var until = require('async-loop').until
 ```
   - [whilst()](#whilst)
   - [doWhilst()](#dowhilst)
-  - [until()](#until)
-  - [doUntil()](#dountil)
 
 ## whilst()
 
-  Execute a callback for each time the test passes. Then call the 3rd callback
-  if one is provided. Any errors handled within the iterator will cause the loop
-  to halt immediatly and the 3rd argument will be called.
+  Execute a callback for each time the test passes. Any 
+  errors handled within the iterator will cause the loop
+  to halt immediatly and `done` to be called.
   
 ```js
 whilst(
@@ -43,18 +41,8 @@ whilst(
 
 ## doWhilst()
 
-  Like while except the iterator the order of the test and the iterator is switched.
+  Like while except the order of the test and the iterator is switched.
   Therefore, the iterator will allways be called at least once
-
-## until()
-
-  Like while except the process is only run if the test fails. As soon as it 
-  passes looping stops and the final callback is called as per whiel
-
-## doUntil()
-
-  Like doWhile except the order of process and test is switched. That means the 
-  process is always run at least once.
 
 ## Contributing
 As with all my work this is both a work in progress and a thought in progress. Feel free to chip in in any way you can.

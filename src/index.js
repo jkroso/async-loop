@@ -1,7 +1,5 @@
 exports.while = whilst
 exports.doWhile = doWhilst
-exports.until = until
-exports.doUntil = doUntil
 
 /**
  * Execute a callback for each time the test passes. Any 
@@ -43,38 +41,6 @@ function doWhilst (iterator, done) {
 	})
 }
 
-/**
- * Like while except the process is only run if the test fails. As soon as it 
- * passes looping stops and the final callback is called as per whiel
- * 
- * @see while
- */
-
-function until (test, iterator, done) {
-	if (!test()) {
-		iterator(function (err) {
-			if (err) done && done(err)
-			else until(test, iterator, done)
-		})
-	} else {
-		done && done()
-	}
-}
-
-/**
- * Like doWhile except the order of process and test is switched. That means the 
- * process is always run at least once.
- *
- * @see doWhile
- */
-
-function doUntil (iterator, test, done) {
-	iterator(function (err) {
-		if (err) 
-			done && done(err)
-		else if (!test()) 
-			doUntil(iterator, test, done)
-		else
-			done && done()
-	})
-}
+// Create compliments
+exports.until = eval(('('+whilst+')').replace('test()', '!test()'))
+exports.doUntil = eval(('('+doWhilst+')').replace('(c', '(!c'))
