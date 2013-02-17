@@ -1,6 +1,3 @@
-exports.while = whilst
-exports.doWhile = doWhilst
-
 /**
  * Execute a callback for each time the test passes. Any 
  * errors handled within the iterator will cause the loop
@@ -19,7 +16,7 @@ exports.doWhile = doWhilst
  * @param {Function} [done]
  */
 
-function whilst (test, iterator, done) {
+exports.while = function(test, iterator, done) {
 	!function next(err) {
 		if (err) done && done(err)
 		else if (test()) iterator(next)
@@ -28,12 +25,21 @@ function whilst (test, iterator, done) {
 }
 
 /**
- * Like while except the order of the test and the iterator is switched.
- * Therefore, the iterator will allways be called at least once
- * @see whilst
+ * Like while except the test is checked after execution. In this
+ * case there is no need for the `test` to be a seperate function
+ * so you do that inside your normal body then pass the result to 
+ * the callback.
+ *
+ *   doWhilst(function(next){
+ *     // do work
+ *     next(null, true) // pass true to loop again
+ *   })
+ *
+ * @param {Function} iterator
+ * @param {Function} [done]
  */
 
-function doWhilst (iterator, done) {
+exports.doWhile = function(iterator, done) {
 	iterator(function next(err, cont) {
 		if (err) done && done(err)
 		else if (cont) iterator(next)
@@ -42,5 +48,5 @@ function doWhilst (iterator, done) {
 }
 
 // Create compliments
-exports.until = eval(('('+whilst+')').replace('test()', '!test()'))
-exports.doUntil = eval(('('+doWhilst+')').replace('(c', '(!c'))
+exports.until = eval(('('+exports.while+')').replace('test()', '!test()'))
+exports.doUntil = eval(('('+exports.doWhile+')').replace('(c', '(!c'))

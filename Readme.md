@@ -1,14 +1,14 @@
 # async-loop
 
-a low level set of looping constructs for async operations. The api of these functions are identical to those from [coalan/async](https://github.com/caolan/async) except here the 3rd argument is always optional, so if this documentation is too brief look their. I wrote this project because I think coalan/async is generally to broad and is falling out of maintanance. I generally only use one or two functions from it at a time.
+a low level set of looping constructs for async operations.
 
 ## Getting Started
 
-With component(1) 
+With component  
 
 `component install jkroso/async-loop`
 
-In Node.js 
+In Node.js  
 
 `npm install jkroso/async-loop`
 
@@ -20,10 +20,10 @@ var doWhile = require('async-loop').doWhile
 var doUntil = require('async-loop').doUntil
 var until = require('async-loop').until
 ```
-  - [whilst()](#whilst)
-  - [doWhilst()](#dowhilst)
+  - [exports.while()](#exportswhiletestfunctioniteratorfunctiondonefunction)
+  - [exports.doWhile()](#exportsdowhileiteratorfunctiondonefunction)
 
-## whilst()
+## exports.while(test,:Function, iterator:Function, [done]:Function)
 
   Execute a callback for each time the test passes. Any 
   errors handled within the iterator will cause the loop
@@ -39,10 +39,27 @@ whilst(
 )
 ```
 
-## doWhilst()
+## exports.doWhile(iterator:Function, [done]:Function)
 
-  Like while except the order of the test and the iterator is switched.
-  Therefore, the iterator will allways be called at least once
+  Like while except the test is checked after execution. In this
+  case there is no need for the `test` to be a seperate function
+  so you do that inside your normal body then pass the result to 
+  the callback.
+  
+```js
+doWhilst(function(next){
+  // do work
+  next(null, true) // pass true to loop again
+})
+```
+
+
+## compliment functions
+
+All functions mentioned in the api section have compliments wherin the test conditions are flipped. You may find these make your code more readable.
+
+- whilst -> until
+- doWhilst -> doUntil
 
 ## Contributing
 As with all my work this is both a work in progress and a thought in progress. Feel free to chip in in any way you can.

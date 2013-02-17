@@ -2,7 +2,7 @@
   "name": "async-loop",
   "repo": "jkroso/async-loop",
   "description": "a low level set of looping constructs for async operations",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "keywords": ["aysnc","loop"],
   "dependencies": {},
   "main": "src/index.js",

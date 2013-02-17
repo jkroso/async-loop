@@ -1,4 +1,11 @@
 
+## compliment functions
+
+All functions mentioned in the api section have compliments wherin the test conditions are flipped. You may find these make your code more readable.
+
+- whilst -> until
+- doWhilst -> doUntil
+
 ## Contributing
 As with all my work this is both a work in progress and a thought in progress. Feel free to chip in in any way you can.
 
